@@ -1,0 +1,35 @@
+{% extends "register.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="container" style='background-color: white; 
+                width: 97%; margin-left: 1.5%; margin-top: 1%'>
+<form class="row" method="post" novalidate>
+    {% csrf_token %}
+    <div class="col-lg-6 mx-auto">
+      <br>
+      
+      <div class="col-lg-8 mx-auto" style="margin-left: 13%; font-family: 'Cabin', sans-serif;">
+        <h2>Register Category</h2>
+        <br>  
+        <label>Name *</label><br>
+          {{ form.categoryName | add_class:'mombo-category' }}
+          <br>
+      </div>  
+      
+      <button class="btn btn-primary" type="submit" style="
+                                  float: none; 
+                                  width: 40%;
+                                  backface-visibility: visible;
+                                  background-color:teal;
+                                  border-radius: 6px;
+                                  color: white;
+                                  text-align: center;
+                                  margin-left: 29%;
+                                  ">Submit</button>
+                                  <br><br>
+      
+    </div>
+  </form>
+  </div>
+{% endblock %}

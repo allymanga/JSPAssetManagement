@@ -1,0 +1,92 @@
+{% extends "register.html" %}
+{% load humanize %}
+
+{% block title %}
+    <title>Cars - Category | JSP Assets</title>
+{% endblock %}
+
+{% block logout %}
+  <a href="../../accounts/logout/"><i class="fa fa-power-off" aria-hidden="true"></i>&nbsp;Log Out</a>
+  {% endblock %}
+
+{% block content %}
+<script language="javascript">
+    function printdiv(printpage)
+    {
+    var headstr = "<html><head><title></title></head><body>";
+    var footstr = "</body>";
+    var newstr = document.all.item(printpage).innerHTML;
+    var oldstr = document.body.innerHTML;
+    document.body.innerHTML = headstr+newstr+footstr;
+    window.print();
+    document.getElementById("print_detail") = oldstr;
+    return false;
+    }
+    </script>
+<div class="table-responsive" id="print_detail" 
+        style="width: 97%; margin-left: 1.5%; margin-top: 1%;
+                    font-family: 'Hind', sans-serif; background-color: white!important;">
+    <div style="float: left; margin-top: 8px; margin-left: 730px">
+            <button name="b_print" type="button" class="d-print-none" class="ipt"
+            style="height: 25px; margin-top: 10px;"
+            onClick="printdiv('print_detail');" value=" ">
+            <i class="fa fa-print" style="font-size: 17px" aria-hidden="true"></i>
+        </button>
+    </div>
+
+        <div style="float: right; margin-right: 4%;margin-top: 2%">
+            <h5>Total Assets In Motion: &nbsp;<b>{{ assetTotal.count }}</b> </h5>
+        </div>
+        
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+            <th>S/No.</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Model</th>
+            <th>Serial Number</th>
+            <th>Purchase Price</th>
+            <th>Condition</th>
+            <th>Location</th>
+            <th class="d-print-none">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for asset in assets %}<tr>
+            <td>{{ forloop.counter }}.</td>
+            <td><a href="{{ asset.get_absolute_url }}">{{ asset.productName }}</a></td>
+            <td>{{ asset.categoryName }}</td>
+            <td>{{ asset.model }}</td>
+            <td>{{ asset.serialNumber }}</td>
+            <td>{{ asset.purchasePrice | intcomma }}</td>
+            <td>{{ asset.condition }}</td>
+            <td>{{ asset.location }}</td>
+            <td class="d-print-none"><a href="{{ asset.get_absolute_update_url}}"><i class="fa fa-pencil" aria-hidden="true"></i></a>/<a href="{{ asset.get_absolute_delete_url}}"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+          </tr>
+          {% endfor %}
+          
+        </tbody>
+      </table>
+      
+    </div>
+    <div class="pagination" style="background-color: white; width: 100%">
+        <div style="margin-left: 30%; width: 40%; text-align: center">
+            <span class="step-links">
+                {% if assets.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ assets.previous_page_number }}">previous</a>
+                {% endif %}
+        
+                <span class="current">
+                    Page {{ assets.number }} of {{ assets.paginator.num_pages }}.
+                </span>
+        
+                {% if assets.has_next %}
+                    <a href="?page={{ assets.next_page_number }}">next</a>
+                    <a href="?page={{ assets.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+        </div>
+{% endblock %}

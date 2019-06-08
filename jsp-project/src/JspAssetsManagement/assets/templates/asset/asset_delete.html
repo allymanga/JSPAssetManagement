@@ -1,0 +1,207 @@
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+{% load humanize %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>JSP Assets Management System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1", shrink-to-fit=no>
+    <link rel="stylesheet" 
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" 
+    crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Cabin|Hind|Josefin+Sans|Karla|Raleway" rel="stylesheet">
+
+<style>
+
+    *  {box-sizing: border-box;}
+
+body {
+    font-family: "Lato", sans-serif;
+    /* background-image: url(/static/img/background1.jpg); */
+    background-color: rgb(31, 41, 24)
+}
+
+/* Fixed sidenav, full height */
+.sidenav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+    background: #1d0f1c;
+    /* background: linear-gradient(to left, #000000, #09030a); */
+}
+
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 15px;
+    color: #ffffff;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+    margin-left: 10px;
+}
+
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+    color: #8f9496;
+}
+
+/* Main content */
+.main {
+    margin-left: 200px; /* Same as the width of the sidenav */
+    font-size: 15px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+}
+
+/* Add an active class to the active dropdown button */
+.active {
+    background-color: rgb(53, 79, 94);
+    color: rgb(236, 234, 234);
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+    display: none;
+    background: linear-gradient(to left, #301919, #3e3041);
+    padding-left: 8px;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+    float: right;
+    padding-right: 8px;
+}
+
+/* Some media queries for responsiveness */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+/* The Project Inputs*/
+.mombo{
+    display:block;
+    margin-left: 0px!important;
+    width: 300px;
+    height: 30px;
+    border-style: outset!important;
+    border-radius: 7px;
+}
+</style>
+</head>
+<body style="
+width: 100%;
+background: url('/static/img/bg-pattern.png');
+background: url('/static/img/bg-pattern.png'), #7b4397;
+background: url('/static/img/bg-pattern.png'), -webkit-gradient(linear, right top, left top, from(#7b4397), to(#dc2430));
+background: url('/static/img/bg-pattern.png'), linear-gradient(to left, #7b4397, #830f60);">
+{% block navbar %}
+<div class="sidenav">
+    
+    <div style="color: white; background-color: white;">
+        <img src="/static/img/logo.png" style="width: 170px; margin-left: 0px;"/>
+    </div>
+    <br><br><br>
+  <a href="/dashboard/"><i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp;&nbsp;Dashboard</a>
+  <button class="dropdown-btn"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Register
+    <i class="fa fa-caret-down"></i>
+  </button>
+  <div class="dropdown-container">
+    <a href="/register/">&nbsp;Register Asset</a>
+    <!-- <a href="/category/">Register Category</a> -->
+  </div>
+  
+  <button class="dropdown-btn"><i class="fa fa-file-text-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Reports
+    <i class="fa fa-caret-down"></i>
+  </button>
+  <div class="dropdown-container">
+
+        <button class="dropdown-btn">&nbsp;IT Assets
+        <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-container">
+            <a href="../../category/laptops/">&nbsp;&nbsp;Laptops </a>
+            <a href="../../category/printers/">&nbsp;&nbsp;Printers </a>
+        </div>
+
+    <a href="../../category/furniture/">&nbsp;Furniture</a>
+
+    <button class="dropdown-btn">&nbsp;Vehicles
+            <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-container">
+                <a href="../../category/cars/">&nbsp;&nbsp;Cars </a>
+                <a href="../../category/trucks/">&nbsp;&nbsp;trucks </a>
+            </div>
+
+    <a href="../../category/others/">&nbsp;Others </a>
+  </div>
+  <a href="/assets-worth/"><i class="fa fa-superpowers" aria-hidden="true"></i>&nbsp;&nbsp;Assets Worth</a>
+  <br>
+  <a href="../../accounts/logout/"><i class="fa fa-power-off" aria-hidden="true"></i>&nbsp;Log Out</a>
+  
+</div>
+{% endblock %}
+
+<div class="main col-xs-4">
+
+{% block content %}
+<br>
+<div class="table-responsive" 
+        style="width: 97%; margin-left: 1.5%; 
+                    font-family: 'Hind', sans-serif; background-color: white!important;">
+                    <br>
+    <form action="." method="POST" style="margin-left: 5%; margin-top: 2%;">
+        {% csrf_token %}
+        <h3>Do you want to delete the asset named "<span style="color: red">{{ object.productName}}</span>"<br>
+            with <small>S/N "{{ object.serialNumber }}"</small> and model 
+            <small>"{{ object.model }}"</small>?</h3>
+        <p><input type="submit" value="Yes" /></p>
+    </form>    
+    <a style="position: absolute; margin-top: -44px; margin-left: 120px" href="/dashboard/"><button>Back</button></a>
+    <br>
+      
+</div>
+    
+{% endblock %}
+
+<br><br><br>
+</div></div>
+<br><br>
+<script>
+/* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+var dropdown = document.getElementsByClassName("dropdown-btn");
+var i;
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display === "block") {
+      dropdownContent.style.display = "none";
+    } else {
+      dropdownContent.style.display = "block";
+    }
+  });
+}
+</script>
+
+</body>
+</html>

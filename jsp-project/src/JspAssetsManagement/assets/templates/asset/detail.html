@@ -1,0 +1,154 @@
+{% extends "register.html" %}
+{% load widget_tweaks %}
+{% load staticfiles %}
+{% load humanize %}
+
+{% block title %}
+    <title>{{ object.productName }} | JSP Assets</title>
+{% endblock %}
+
+{% block navbar %}
+<div class="sidenav">
+    
+  <div style="color: white; background-color: white;">
+    <img src="/static/img/logo.png" style="width: 170px; margin-left: 0px;"/>
+  </div>
+  <br><br><br>
+<a href="/dashboard/"><i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp;&nbsp;Dashboard</a>
+<button class="dropdown-btn"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Register
+  <i class="fa fa-caret-down"></i>
+</button>
+<div class="dropdown-container">
+  <a href="/register/">&nbsp;Register Asset</a>
+  <!-- <a href="/category/">Register Category</a> -->
+</div>
+
+<button class="dropdown-btn"><i class="fa fa-file-text-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Reports
+  <i class="fa fa-caret-down"></i>
+</button>
+<div class="dropdown-container">
+
+      <button class="dropdown-btn">&nbsp;IT Assets
+      <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-container">
+          <a href="/category/laptops/">&nbsp;&nbsp;Laptops ({{ assetTotalLaptops.count }})</a>
+          <a href="/category/printers/">&nbsp;&nbsp;Printers ({{ assetTotalPrinters.count }})</a>
+      </div>
+
+  <a href="/category/furniture/">&nbsp;Furniture ({{ assetTotalFurniture.count }})</a>
+
+  <button class="dropdown-btn">&nbsp;Vehicles
+          <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-container">
+              <a href="/category/cars/">&nbsp;&nbsp;Cars ({{ assetTotalCars.count }})</a>
+              <a href="/category/trucks/">&nbsp;&nbsp;trucks ({{ assetTotalTrucks.count }})</a>
+          </div>
+
+  <a href="/category/others/">&nbsp;Others ({{ assetTotalOthers.count }})</a>
+</div>
+<a href="/assets-worth/"><i class="fa fa-superpowers" aria-hidden="true"></i>&nbsp;&nbsp;Assets Worth</a>
+<br>
+<a href="../../accounts/logout/"><i class="fa fa-power-off" aria-hidden="true"></i>&nbsp;Log Out</a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="print_detail">
+    <div style="margin-top: 1%; width: 97%; margin-left: 1.5%;
+                background-color: white; font-family: 'Hind', sans-serif;">
+        <br>
+        
+        {% if object.assetImage %}
+    <img style="width: 40%; max-height: 100%; margin-left: 30%;" src="{{ object.assetImage.url }}" alt="Photo Asset"/>
+        {% endif %}
+      
+    <!-- <h1>{{ object.productName }}</h1>
+    <h2>{{ object.description }}</h2>
+    <label>Name: </label> {{ object.productName }} -->
+<br><br>
+    <div class="table-responsive" style="width: 60%; margin-left: 20%">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th>{{ object.productName }} Details #{{ object.id }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name: </b></td>
+                <td>{{ object.productName }}</td>
+              </tr>
+              <tr>
+                <td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Category: </b></td>
+                <td>{{ object.categoryName }}</td>
+              </tr>
+              <tr>
+                <td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Model: </b></td>
+                <td>{{ object.model }}</td>
+              </tr>
+              <tr>
+                <td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Serial Number (S/No): </b></td>
+                <td>{{ object.serialNumber }}</td>
+              </tr>
+              <tr>
+                <td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Asset Acquired Date: </b></td>
+                <td>{{ object.acquiredDate }}</td>
+              </tr>
+              <tr>
+                <td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Purchase Price: </b></td>
+                <td>{{ object.purchasePrice | intcomma }}</td>
+              </tr>
+              <tr>
+                <td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Asset Current Location: </b></td>
+                <td>{{ object.location }}</td>
+              </tr>
+              <tr>
+                <td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Asset Condition: </b></td>
+                <td>{{ object.condition }}</td>
+              </tr>
+              <tr>
+                <td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Asset Rent Status: </b></td>
+                <td>{{ object.rentStatus }}</td>
+              </tr>     
+              <tr>
+                <td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Is this Asset in Motion?: </b></td>
+                <td>{{ object.assetMovement }}</td>
+              </tr>
+              <tr>
+                <td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Is this Asset in Motion?: </b></td>
+                <td>{{ object.serialNumberNjema }}</td>
+              </tr>    
+              
+            </tbody>
+          </table>
+          <label><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Description </b></label>
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ object.description }}</p>
+    </div>
+    
+    
+
+
+<script language="javascript">
+  function printdiv(printpage)
+  {
+  var headstr = "<html><head><title></title></head><body>";
+  var footstr = "</body>";
+  var newstr = document.all.item(printpage).innerHTML;
+  var oldstr = document.body.innerHTML;
+  document.body.innerHTML = headstr+newstr+footstr;
+  window.print();
+  document.getElementById("print_detail") = oldstr;
+  return false;
+  }
+  </script>
+
+  </div>
+  </div>
+  <div style="float: left; position:absolute; margin-left: 900px; margin-top: -40px;">
+    
+    <a href="{{ object.get_absolute_update_url}}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+    <input name="b_print" type="button" class="ipt"   onClick="printdiv('print_detail');" value=" Print ">
+  </div>
+{% endblock %}
